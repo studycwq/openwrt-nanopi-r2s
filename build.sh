@@ -107,15 +107,6 @@ cd "$proj_dir/openwrt"
 cd "$proj_dir/openwrt"
 ./scripts/feeds install -a
 
-# Download fullconenat.patch to package/network/config/firewall/patches/
-cd "$proj_dir/openwrt"
-mkdir package/network/config/firewall/patches
-wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
-# Patch LuCI
-pushd feeds/luci
-wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
-popd
-
 # customize configs
 cd "$proj_dir/openwrt"
 cat "$proj_dir/config.seed" >.config
