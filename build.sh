@@ -75,9 +75,20 @@ svn co https://github.com/immortalwrt/packages/branches/openwrt-21.02/net/ddns-s
 svn co https://github.com/immortalwrt/packages/branches/openwrt-21.02/net/ddns-scripts_dnspod custom/ddns-scripts_dnspod
 # luci-theme-argon
 git clone -b master --depth 1 https://github.com/jerrykuku/luci-theme-argon.git custom/luci-theme-argon
+# luci-app-argon-config
+git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config.git custom/luci-app-argon-config
 # luci-app-uugamebooster
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-uugamebooster custom/luci-app-uugamebooster
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/uugamebooster custom/uugamebooster
+# luci-app-filebrowser
+svn co https://github.com/immortalwrt/luci/branches/openwrt-21.02/applications/luci-app-filebrowser custom/luci-app-filebrowser
+sed -i "s/..\/..\/luci.mk/\$(TOPDIR)\/feeds\/luci\/luci.mk/g" custom/luci-app-filebrowser/Makefile
+svn co https://github.com/immortalwrt/packages/branches/openwrt-21.02/utils/filebrowser custom/filebrowser
+sed -i "s/..\/..\/lang\/golang\/golang-package.mk/\$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang-package.mk/g" custom/filebrowser/Makefile
+# luci-app-jd-dailybonus
+git clone --depth 1 https://github.com/jerrykuku/luci-app-jd-dailybonus.git custom/luci-app-jd-dailybonus
+# openwrt-fullconenat
+git clone -b master --single-branch https://github.com/LGA1150/openwrt-fullconenat custom/fullconenat
 
 # clean up packages
 cd "$proj_dir/openwrt/package"
@@ -95,6 +106,15 @@ cd "$proj_dir/openwrt"
 # install packages
 cd "$proj_dir/openwrt"
 ./scripts/feeds install -a
+
+# Download fullconenat.patch to package/network/config/firewall/patches/
+cd "$proj_dir/openwrt"
+mkdir package/network/config/firewall/patches
+wget -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+# Patch LuCI
+pushd feeds/luci
+wget -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
+popd
 
 # customize configs
 cd "$proj_dir/openwrt"
