@@ -10,8 +10,8 @@ on:
   push:
     branches:
       - openwrt-21.02
-  schedule:
-    - cron: '00 18 * * *'
+  #schedule:
+  #  - cron: '00 18 * * *'
   watch:
     types: [started]
 
