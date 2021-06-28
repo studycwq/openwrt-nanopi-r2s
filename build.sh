@@ -80,11 +80,6 @@ git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config.git custo
 # luci-app-uugamebooster
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-uugamebooster custom/luci-app-uugamebooster
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/uugamebooster custom/uugamebooster
-# luci-app-filebrowser
-svn co https://github.com/immortalwrt/luci/branches/openwrt-21.02/applications/luci-app-filebrowser custom/luci-app-filebrowser
-sed -i "s/..\/..\/luci.mk/\$(TOPDIR)\/feeds\/luci\/luci.mk/g" custom/luci-app-filebrowser/Makefile
-svn co https://github.com/immortalwrt/packages/branches/openwrt-21.02/utils/filebrowser custom/filebrowser
-sed -i "s/..\/..\/lang\/golang\/golang-package.mk/\$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang-package.mk/g" custom/filebrowser/Makefile
 # luci-app-jd-dailybonus
 git clone --depth 1 https://github.com/jerrykuku/luci-app-jd-dailybonus.git custom/luci-app-jd-dailybonus
 # openwrt-fullconenat
